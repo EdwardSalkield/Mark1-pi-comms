@@ -2,15 +2,30 @@ import RPi.GPIO as GPIO
 import time, os.path, sys
 import toml, argparse
 
-parser = argparse.ArgumentParser(description="Communicate with the Mark 1 FPGA")
-parser.add_argument("config_path")
 
-args = parser.parse_args()
-
+# Definitions
 # Print critical error and exit
 def printerr(s):
 	print(s)
 	sys.exit()
+
+
+# Print only if not running in quiet mode
+def qprint(s):
+    if not quiet:
+        print(s)
+
+
+# Parse command line arguments
+parser = argparse.ArgumentParser(description="Communicate with the Mark 1 FPGA")
+parser.add_argument("config_path")
+parser.add_argument("-q", help="Run in quiet mode", action="store_true")
+
+args = parser.parse_args()
+
+quiet = args.q
+
+
 
 # Load config
 if not os.path.isfile(config_path):
@@ -45,6 +60,7 @@ GPIO.setwarnings(False)
 for name, v in config["pins"]["fromFPGA"].iteritems():
 	try:
 		GPIO.setup(int(v[0]), GPIO.IN)
+                qprint("set up fromFPGA pin " + name + ", " + str(v[0]))
 	except Exception:
 		printerr("Error setting up fromFPGA pin" + name + ", " + str(v[0]))
 
@@ -52,8 +68,10 @@ for name, v in config["pins"]["fromFPGA"].iteritems():
 for name, v in config["pins"]["toFPGA"].iteritems():
 	try:
 		GPIO.setup(int(v[0]), GPIO.OUT)
+                qprint("set up toFPGA" + name + ", " + str(v[0]))
 	except Exception:
 		printerr("Error setting up toFPGA pin" + name + ", " + str(v[0]))
+
 
 
 b = True
