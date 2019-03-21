@@ -1,0 +1,21 @@
+pi_board_mode: "BOARD",
+
+# Pin mapping pi to FPGA
+[pins]
+	[pins.toFPGA]
+		TPR_CLK = 	[3, 19]
+		TPR_DATA = 	[5, 16]
+		S_CLK =		[7, 15]
+		S_DATA =	[11, 100]
+		PS =		[13, 97]
+		KSP = 		[15, 95]
+		SS =		[19, 93]
+		KLC =		[21, 90]
+		KSC = 		[8, 18]
+		TEST = 		[22, -1]
+	[pins.fromFPGA]
+		SL =		[10, 12]
+		DISP_CLK =	[12, 99]
+		DISP_DATA =	[[16, 96], [18, 94]]
+		
+
