@@ -1,0 +1,13 @@
+# Number of clock cycles the simulation should run for
+cycles = 30
+
+# The size of the OSC, for sanity checks
+n_OSC = 10
+
+# List of all wires measures on the OSC
+OSC = ["w_CLK", "w_DV1", "w_DV2", "w_BO_WF", "w_PARA_BO_WF", "w_DPG",
+"w_P0", 
+"w_P1",
+"w_P2",
+"w_P3",
+]
